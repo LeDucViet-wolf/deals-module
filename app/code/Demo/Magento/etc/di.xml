@@ -14,4 +14,7 @@
             <argument name="resourceModel" xsi:type="string">Demo\Magento\Model\ResourceModel\Post</argument>
         </arguments>
     </virtualType>
+    <type name="Magento\Catalog\Model\Product">
+        <plugin name="cache_price" type="Demo\Magento\Plugin\Product" sortOrder="1" />
+    </type>
 </config>
