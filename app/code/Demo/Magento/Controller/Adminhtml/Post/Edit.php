@@ -12,10 +12,9 @@ class Edit extends Post
      */
     public function execute()
     {
-//         die(__METHOD__);
         $postId = $this->getRequest()->getParam('id');
 
-        $model = $this->_postsFactory->create();
+        $model = $this->postsFactory->create();
 
         if ($postId) {
             $model->load($postId);
@@ -26,15 +25,14 @@ class Edit extends Post
             }
         }
 
-        // Restore previously entered form data from session
         $data = $this->_session->getNewsData(true);
         if (!empty($data)) {
             $model->setData($data);
         }
-        $this->_coreRegistry->register('demo_deal', $model);
+        $this->coreRegistry->register('demo_deal', $model);
 
         /** @var Page $resultPage */
-        $resultPage = $this->_resultPageFactory->create();
+        $resultPage = $this->resultPageFactory->create();
         $resultPage->setActiveMenu('Demo_Magento::hello');
         $resultPage->getConfig()->getTitle()->prepend(__('Posts'));
 

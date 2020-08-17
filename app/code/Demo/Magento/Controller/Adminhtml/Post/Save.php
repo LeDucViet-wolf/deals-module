@@ -7,15 +7,12 @@ use Demo\Magento\Controller\Adminhtml\Post;
 
 class Save extends Post
 {
-    /**
-     * @return void
-     */
     public function execute()
     {
         $isPost = $this->getRequest()->getPost();
 
         if ($isPost) {
-            $postsModel = $this->_postsFactory->create();
+            $postsModel = $this->postsFactory->create();
             $postsId = $this->getRequest()->getParam('id');
 
             if ($postsId) {
@@ -25,19 +22,14 @@ class Save extends Post
             $postsModel->setData($formData);
 
             try {
-                // Save news
                 $postsModel->save();
 
-                // Display success message
                 $this->messageManager->addSuccess(__('The news has been saved.'));
 
-                // Check if 'Save and Continue'
                 if ($this->getRequest()->getParam('back')) {
                     $this->_redirect('*/*/edit', ['id' => $postsModel->getId(), '_current' => true]);
                     return;
                 }
-
-                // Go to grid page
                 $this->_redirect('*/*/');
                 return;
             } catch (Exception $e) {

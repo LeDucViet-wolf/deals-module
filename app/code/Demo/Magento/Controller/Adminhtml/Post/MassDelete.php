@@ -37,32 +37,14 @@ class MassDelete extends Action
 
     public function execute()
     {
-//        $deleteIds = $this->getRequest()->getParam('selected');
-//
-//        $collection = $this->moduleFactory->create();
-//
-//        $collection->addFieldToFilter('id', array('in' => $deleteIds));
-//        $count = 0;
         $collection = $this->filter->getCollection($this->moduleFactory->create());
-//        var_dump($collection);
         $collectionSize = $collection->getSize();
-        foreach ($collection as $child) {
-//            var_dump($child);
-            $child->delete();
-//            $count++;
-        }
-        $this->messageManager->addSuccess(__('A total of %1 record(s) have been deleted.',$collectionSize));
 
-//        var_dump($collection);
-//        $id = 3;
-//        $id = $this->_request->getParam('id');
-//        $post = $this->_postsFactory->create();
-//        $result = $post->setId($deleteIds);
-//        if ($result = $result->delete()){
-//            $this->messageManager->addSuccessMessage(__('You deleted the data.'));
-//        } else {
-//            $this->messageManager->addErrorMessage(__('Data was not deleted.'));
-//        }
+        foreach ($collection as $child) {
+            $child->delete();
+        }
+
+        $this->messageManager->addSuccess(__('A total of %1 record(s) have been deleted.',$collectionSize));
         return $this->_redirect('max/post/index');
     }
 }

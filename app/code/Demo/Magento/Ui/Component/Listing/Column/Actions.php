@@ -10,35 +10,26 @@ use Magento\Ui\Component\Listing\Columns\Column;
 
 class Actions extends Column
 {
-    /** Url path */
     const URL_PATH_EDIT = 'max/post/edit';
     const URL_PATH_DELETE = 'max/post/delete';
-    /** @var UrlBuilder */
+
     protected $actionUrlBuilder;
-    /** @var UrlInterface */
     protected $urlBuilder;
 
-    /**
-     * @param ContextInterface $context
-     * @param UiComponentFactory $uiComponentFactory
-     * @param UrlBuilder $actionUrlBuilder
-     * @param UrlInterface $urlBuilder
-     * @param array $components
-     * @param array $data
-     */
-    public function __construct(ContextInterface $context, UiComponentFactory $uiComponentFactory, UrlBuilder $actionUrlBuilder, UrlInterface $urlBuilder, array $components = [], array $data = [])
+    public function __construct(
+        ContextInterface $context,
+        UiComponentFactory $uiComponentFactory,
+        UrlBuilder $actionUrlBuilder,
+        UrlInterface $urlBuilder,
+        array $components = [],
+        array $data = []
+    )
     {
         $this->urlBuilder = $urlBuilder;
         $this->actionUrlBuilder = $actionUrlBuilder;
         parent::__construct($context, $uiComponentFactory, $components, $data);
     }
 
-    /**
-     * Prepare Data Source
-     *
-     * @param array $dataSource
-     * @return array
-     */
     public function prepareDataSource(array $dataSource)
     {
         if (isset($dataSource['data']['items'])) {

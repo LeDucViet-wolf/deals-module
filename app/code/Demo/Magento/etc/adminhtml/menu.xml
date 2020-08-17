@@ -4,9 +4,11 @@
     <menu>
         <add id="Demo_Magento::demo" title="Deals" module="Demo_Magento" sortOrder="1"
              resource="Demo_Magento::helloworld"/>
+
         <add id="Demo_Magento::post_id" title="Manage Deals" module="Demo_Magento" sortOrder="10"
              action="max/post/index"
              resource="Demo_Magento::post" parent="Demo_Magento::demo"/>
+
         <add id="Demo_Magento::hello_configuration_id" title="Configuration" module="Demo_Magento" sortOrder="5"
              parent="Demo_Magento::demo" action="adminhtml/system_config/edit/section/helloworld_section_id"
              resource="Demo_Magento::helloworld_configuration"/>

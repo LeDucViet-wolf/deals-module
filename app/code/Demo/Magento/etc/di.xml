@@ -17,4 +17,10 @@
     <type name="Magento\Catalog\Model\Product">
         <plugin name="cache_price" type="Demo\Magento\Plugin\Product" sortOrder="1" />
     </type>
+    <type name="Magento\Checkout\Model\Cart">
+        <plugin name="validate_qty_before_add_to_cart" type="Demo\Magento\Plugin\AddToCart" sortOrder="1" />
+    </type>
+    <type name="Magento\Checkout\Model\Cart">
+        <plugin name="validate_update_items_in_cart" type="Demo\Magento\Plugin\UpdateQtyToCart" sortOrder="1" />
+    </type>
 </config>

@@ -4,7 +4,7 @@
     <update handle="styles"/>
     <body>
         <referenceContainer name="content">
-            <uiComponent name="magento_helloworld_post_listing"/>
+            <uiComponent name="magento_helloworld_post_listing" ifconfig="helloworld_section_id/general/enable" />
         </referenceContainer>
     </body>
 </page>

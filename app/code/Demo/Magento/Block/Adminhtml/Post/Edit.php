@@ -5,22 +5,11 @@ namespace Demo\Magento\Block\Adminhtml\Post;
 use Magento\Backend\Block\Widget\Context;
 use Magento\Backend\Block\Widget\Form\Container;
 use Magento\Framework\Registry;
-use Magento\Framework\View\Element\AbstractBlock;
 
 class Edit extends Container
 {
-    /**
-     * Core registry
-     *
-     * @var Registry
-     */
     protected $_coreRegistry = null;
 
-    /**
-     * @param Context $context
-     * @param Registry $registry
-     * @param array $data
-     */
     public function __construct(
         Context $context,
         Registry $registry,
@@ -31,11 +20,6 @@ class Edit extends Container
         parent::__construct($context, $data);
     }
 
-    /**
-     * Class constructor
-     *
-     * @return void
-     */
     protected function _construct()
     {
         $this->_objectId = 'id';
@@ -45,6 +29,7 @@ class Edit extends Container
         parent::_construct();
 
         $this->buttonList->update('save', 'label', __('Save'));
+
         $this->buttonList->add(
             'saveandcontinue',
             [
@@ -58,21 +43,14 @@ class Edit extends Container
                         ]
                     ]
                 ]
-            ],
-            -100
+            ], -100
         );
         $this->buttonList->update('delete', 'label', __('Delete'));
     }
 
-    /**
-     * Retrieve text for header element depending on loaded news
-     *
-     * @return string
-     */
     public function getHeaderText()
     {
         $posts = $this->_coreRegistry->registry('demo_deal');
-//        var_dump($posts); exit;
         if ($posts->getId()) {
             $postsTitle = $this->escapeHtml($posts->getTitle());
             return __("Edit Deals '%1'", $postsTitle);
@@ -81,11 +59,6 @@ class Edit extends Container
         }
     }
 
-    /**
-     * Prepare layout
-     *
-     * @return AbstractBlock
-     */
     protected function _prepareLayout()
     {
         $this->_formScripts[] = "
@@ -97,7 +70,6 @@ class Edit extends Container
                 }
             };
         ";
-
         return parent::_prepareLayout();
     }
 }

@@ -4,11 +4,11 @@
     <body>
         <referenceContainer name="left">
             <block class="Demo\Magento\Block\Adminhtml\Post\Edit\Tabs"
-                   name="helloworld_posts_grid_block.edit.tabs"/>
+                   name="helloworld_posts_grid_block.edit.tabs" ifconfig="helloworld_section_id/general/enable" />
         </referenceContainer>
         <referenceContainer name="content">
             <block class="Demo\Magento\Block\Adminhtml\Post\Edit"
-                   name="helloworld_posts_grid_block.edit"/>
+                   name="helloworld_posts_grid_block.edit" ifconfig="helloworld_section_id/general/enable" />
         </referenceContainer>
     </body>
 </page>
