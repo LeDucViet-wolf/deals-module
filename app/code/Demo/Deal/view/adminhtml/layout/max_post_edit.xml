@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="left">
+            <block class="Demo\Deal\Block\Adminhtml\Post\Edit\Tabs"
+                   name="helloworld_posts_grid_block.edit.tabs" ifconfig="helloworld_section_id/general/enable" />
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Demo\Deal\Block\Adminhtml\Post\Edit"
+                   name="helloworld_posts_grid_block.edit" ifconfig="helloworld_section_id/general/enable" />
+        </referenceContainer>
+    </body>
+</page>

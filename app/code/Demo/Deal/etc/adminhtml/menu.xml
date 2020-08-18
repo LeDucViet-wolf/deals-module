@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Demo_Deal::demo" title="Deals" module="Demo_Deal" sortOrder="1"
+             resource="Demo_Deal::helloworld"/>
+
+        <add id="Demo_Deal::post_id" title="Manage Deals" module="Demo_Deal" sortOrder="10"
+             action="max/post/index"
+             resource="Demo_Deal::post" parent="Demo_Deal::demo"/>
+
+        <add id="Demo_Deal::hello_configuration_id" title="Configuration" module="Demo_Deal" sortOrder="5"
+             parent="Demo_Deal::demo" action="adminhtml/system_config/edit/section/helloworld_section_id"
+             resource="Demo_Deal::helloworld_configuration"/>
+    </menu>
+</config>
