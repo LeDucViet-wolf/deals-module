@@ -9,25 +9,25 @@ class Save extends Post
 {
     public function execute()
     {
-        $isPost = $this->getRequest()->getPost();
+        $is_post = $this->getRequest()->getPost();
 
-        if ($isPost) {
-            $postsModel = $this->postsFactory->create();
-            $postsId = $this->getRequest()->getParam('id');
+        if ($is_post) {
+            $post_model = $this->post_factory->create();
+            $post_id = $this->getRequest()->getParam('id');
 
-            if ($postsId) {
-                $postsModel->load($postsId);
+            if ($post_id) {
+                $post_model->load($post_id);
             }
             $formData = $this->getRequest()->getParam('post');
-            $postsModel->setData($formData);
+            $post_model->setData($formData);
 
             try {
-                $postsModel->save();
+                $post_model->save();
 
                 $this->messageManager->addSuccess(__('The news has been saved.'));
 
                 if ($this->getRequest()->getParam('back')) {
-                    $this->_redirect('*/*/edit', ['id' => $postsModel->getId(), '_current' => true]);
+                    $this->_redirect('*/*/edit', ['id' => $post_model->getId(), '_current' => true]);
                     return;
                 }
                 $this->_redirect('*/*/');
@@ -37,7 +37,7 @@ class Save extends Post
             }
 
             $this->_getSession()->setFormData($formData);
-            $this->_redirect('*/*/edit', ['id' => $postsId]);
+            $this->_redirect('*/*/edit', ['id' => $post_id]);
         }
     }
 }

@@ -12,39 +12,39 @@ use Demo\Deal\Model\ResourceModel\Post\CollectionFactory;
 
 class MassDelete extends Action
 {
-    protected $_pageFactory;
-    protected $_request;
-    protected $_postsFactory;
+    protected $page_factory;
+    protected $request;
+    protected $post_factory;
     protected $filter;
-    protected $moduleFactory;
+    protected $module_factory;
 
     public function __construct(
         Context $context,
-        PageFactory $pageFactory,
+        PageFactory $page_factory,
         Http $request,
         Filter $filter,
-        PostFactory $postsFactory,
-        CollectionFactory $moduleFactory
+        PostFactory $post_factory,
+        CollectionFactory $module_factory
     )
     {
-        $this->_pageFactory = $pageFactory;
-        $this->_request = $request;
-        $this->_postsFactory = $postsFactory;
+        $this->page_factory = $page_factory;
+        $this->request = $request;
+        $this->post_factory = $post_factory;
         $this->filter = $filter;
-        $this->moduleFactory = $moduleFactory;
+        $this->module_factory = $module_factory;
         parent::__construct($context);
     }
 
     public function execute()
     {
-        $collection = $this->filter->getCollection($this->moduleFactory->create());
-        $collectionSize = $collection->getSize();
+        $collection = $this->filter->getCollection($this->module_factory->create());
+        $collection_size = $collection->getSize();
 
         foreach ($collection as $child) {
             $child->delete();
         }
 
-        $this->messageManager->addSuccess(__('A total of %1 record(s) have been deleted.',$collectionSize));
+        $this->messageManager->addSuccess(__('A total of %1 record(s) have been deleted.',$collection_size));
         return $this->_redirect('max/post/index');
     }
 }

@@ -8,7 +8,7 @@ use Magento\Framework\Registry;
 
 class Edit extends Container
 {
-    protected $_coreRegistry = null;
+    protected $core_registry = null;
 
     public function __construct(
         Context $context,
@@ -16,7 +16,7 @@ class Edit extends Container
         array $data = []
     )
     {
-        $this->_coreRegistry = $registry;
+        $this->core_registry = $registry;
         parent::__construct($context, $data);
     }
 
@@ -50,7 +50,7 @@ class Edit extends Container
 
     public function getHeaderText()
     {
-        $posts = $this->_coreRegistry->registry('demo_deal');
+        $posts = $this->core_registry->registry('demo_deal');
         if ($posts->getId()) {
             $postsTitle = $this->escapeHtml($posts->getTitle());
             return __("Edit Deals '%1'", $postsTitle);

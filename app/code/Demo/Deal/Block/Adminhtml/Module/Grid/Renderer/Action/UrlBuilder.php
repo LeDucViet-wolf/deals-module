@@ -6,22 +6,22 @@ use Magento\Framework\UrlInterface;
 
 class UrlBuilder
 {
-    protected $frontendUrlBuilder;
+    protected $frontend_url_builder;
 
     public function __construct(
-        UrlInterface $frontendUrlBuilder
+        UrlInterface $frontend_url_builder
     )
     {
-        $this->frontendUrlBuilder = $frontendUrlBuilder;
+        $this->frontend_url_builder = $frontend_url_builder;
     }
 
     public function getUrl(
-        $routePath,
+        $route_path,
         $scope,
         $store
     )
     {
-        $this->frontendUrlBuilder->setScope($scope);
-        return $this->frontendUrlBuilder->getUrl($routePath, ['_current' => false, '_query' => '___store=' . $store]);
+        $this->frontend_url_builder->setScope($scope);
+        return $this->frontend_url_builder->getUrl($route_path, ['_current' => false, '_query' => '___store=' . $store]);
     }
 }

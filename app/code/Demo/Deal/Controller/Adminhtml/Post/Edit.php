@@ -7,14 +7,11 @@ use Magento\Backend\Model\View\Result\Page;
 
 class Edit extends Post
 {
-    /**
-     * @return void
-     */
     public function execute()
     {
         $postId = $this->getRequest()->getParam('id');
 
-        $model = $this->postsFactory->create();
+        $model = $this->post_factory->create();
 
         if ($postId) {
             $model->load($postId);
@@ -29,13 +26,11 @@ class Edit extends Post
         if (!empty($data)) {
             $model->setData($data);
         }
-        $this->coreRegistry->register('demo_deal', $model);
+        $this->core_registry->register('demo_deal', $model);
+        $result_page = $this->result_page_factory->create();
+        $result_page->setActiveMenu('Demo_Deal::hello');
+        $result_page->getConfig()->getTitle()->prepend(__('Posts'));
 
-        /** @var Page $resultPage */
-        $resultPage = $this->resultPageFactory->create();
-        $resultPage->setActiveMenu('Demo_Deal::hello');
-        $resultPage->getConfig()->getTitle()->prepend(__('Posts'));
-
-        return $resultPage;
+        return $result_page;
     }
 }

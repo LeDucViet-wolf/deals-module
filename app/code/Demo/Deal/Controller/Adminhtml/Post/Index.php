@@ -9,23 +9,23 @@ use Magento\Framework\View\Result\PageFactory;
 
 class Index extends Action
 {
-    protected $resultPageFactory = false;
-    protected $_coreRegistry;
+    protected $result_page_factory = false;
+    protected $core_registry;
 
     public function __construct(
         Context $context,
-        PageFactory $resultPageFactory
+        PageFactory $result_page_factory
     )
     {
         parent::__construct($context);
-        $this->resultPageFactory = $resultPageFactory;
+        $this->result_page_factory = $result_page_factory;
     }
 
     public function execute()
     {
-        $resultPage = $this->resultPageFactory->create();
-        $resultPage->getConfig()->getTitle()->prepend((__('Blah blah')));
+        $result_page = $this->result_page_factory->create();
+        $result_page->getConfig()->getTitle()->prepend((__('Deal Products')));
 
-        return $resultPage;
+        return $result_page;
     }
 }

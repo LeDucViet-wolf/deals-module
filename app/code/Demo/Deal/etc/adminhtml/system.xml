@@ -5,7 +5,6 @@
         <tab id="Demo_Deal" translate="label" sortOrder="10">
             <label>Daily Deals</label>
         </tab>
-
         <section id="helloworld_section_id" translate="label" sortOrder="130" showInDefault="1" showInWebsite="1"
                  showInStore="1">
             <class>separator-top</class>

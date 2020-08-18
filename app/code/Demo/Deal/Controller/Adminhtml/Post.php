@@ -12,23 +12,23 @@ use Magento\Framework\App\Config\ScopeConfigInterface;
 
 class Post extends Action
 {
-    protected $coreRegistry;
-    protected $resultPageFactory;
-    protected $postsFactory;
+    protected $core_registry;
+    protected $result_page_factory;
+    protected $post_factory;
     protected $config;
 
     public function __construct(
         Context     $context,
-        Registry    $coreRegistry,
-        PageFactory $resultPageFactory,
-        PostFactory $postsFactory,
+        Registry    $core_registry,
+        PageFactory $result_page_factory,
+        PostFactory $post_factory,
         ScopeConfigInterface $config
     )
     {
         parent::__construct($context);
-        $this->coreRegistry = $coreRegistry;
-        $this->resultPageFactory = $resultPageFactory;
-        $this->postsFactory = $postsFactory;
+        $this->core_registry = $core_registry;
+        $this->result_page_factory = $result_page_factory;
+        $this->post_factory = $post_factory;
         $this->config = $config;
 
     }
@@ -40,8 +40,8 @@ class Post extends Action
 
     protected function _isAllowed()
     {
-        $configValue = $this->config->getValue('helloworld_section_id/general/enable');
-        if ($configValue != 0) {
+        $config_value = $this->config->getValue('helloworld_section_id/general/enable');
+        if ($config_value != 0) {
             return true;
         } else {
             return false;

@@ -3,47 +3,47 @@
 namespace Demo\Deal\Plugin;
 
 use Magento\Framework\Exception\LocalizedException;
-use Demo\Deal\Model\ResourceModel\Post\CollectionFactory as DealCollection;
+use Demo\Deal\Model\ResourceModel\Post\CollectionFactory as deal_collection;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 
 class UpdateQtyToCart
 {
-    protected $DealCollection;
-    protected $ScopeConfig;
+    protected $deal_collection;
+    protected $scope_config;
 
     function __construct(
-        DealCollection $DealCollection,
-        ScopeConfigInterface $ScopeConfig
+        deal_collection $deal_collection,
+        ScopeConfigInterface $scope_config
     )
     {
-        $this->DealCollection = $DealCollection;
-        $this->ScopeConfig = $ScopeConfig;
+        $this->deal_collection = $deal_collection;
+        $this->scope_config = $scope_config;
     }
 
     public function afterUpdateItems($subject, $result, $data)
     {
         date_default_timezone_set('Asia/Ho_Chi_Minh');
-        $config = $this->ScopeConfig->getValue('helloworld_section_id/general/enable');
+        $config = $this->scope_config->getValue('helloworld_section_id/general/enable');
         $now = date('Y-m-d H:i:s');
-        $deals = $this->DealCollection->create();
-        $dealSku = [];
+        $deals = $this->deal_collection->create();
+        $deal_sku = [];
 
         foreach ($deals as $deal) {
-            $dealSku[] = $deal->getData('product');
+            $deal_sku[] = $deal->getData('product');
         }
 
-        foreach ($data as $productId => $productInfo) {
-            $product = $subject->getQuote()->getItemById($productId);
-            $productSku = $product['sku'];
-            $newQty = $productInfo['qty'];
+        foreach ($data as $product_id => $product_info) {
+            $product = $subject->getQuote()->getItemById($product_id);
+            $product_sku = $product['sku'];
+            $newQty = $product_info['qty'];
 
-            if (in_array($productSku, $dealSku)) {
-                $endTime = $deals->getItemByColumnValue('product', $productSku)->getData('time_end');
-                $startTime = $deals->getItemByColumnValue('product', $productSku)->getData('time_start');
-                $status = $deals->getItemByColumnValue('product', $productSku)->getData('status');
-                $dealQty = $deals->getItemByColumnValue('product', $productSku)->getData('deal_qty');
+            if (in_array($product_sku, $deal_sku)) {
+                $end = $deals->getItemByColumnValue('product', $product_sku)->getData('time_end');
+                $start = $deals->getItemByColumnValue('product', $product_sku)->getData('time_start');
+                $status = $deals->getItemByColumnValue('product', $product_sku)->getData('status');
+                $deal_qty = $deals->getItemByColumnValue('product', $product_sku)->getData('deal_qty');
 
-                if ($now <= $endTime && $status == 1 && $now >= $startTime && $config != 0 && $newQty > $dealQty) {
+                if ($now <= $end && $status == 1 && $now >= $start && $config != 0 && $newQty > $deal_qty) {
                     throw new LocalizedException(__('You can not update cart because deal product quantity limited'));
                 } else {
                     $product->setQty($newQty);

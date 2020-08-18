@@ -11,7 +11,7 @@ class Delete extends Action
     public function execute()
     {
         $id = $this->getRequest()->getParam('id');
-        $resultRedirect = $this->resultRedirectFactory->create();
+        $result_redirect = $this->resultRedirectFactory->create();
 
         if ($id) {
             try {
@@ -19,14 +19,14 @@ class Delete extends Action
                 $model->load($id);
                 $model->delete();
                 $this->messageManager->addSuccess(__('The news has been deleted.'));
-                return $resultRedirect->setPath('*/*/');
+                return $result_redirect->setPath('*/*/');
             } catch (Exception $e) {
                 $this->messageManager->addError($e->getMessage());
-                return $resultRedirect->setPath('*/*/edit', ['id' => $id]);
+                return $result_redirect->setPath('*/*/edit', ['id' => $id]);
             }
         }
         $this->messageManager->addError(__('We can\'t find a news to delete.'));
-        return $resultRedirect->setPath('*/*/');
+        return $result_redirect->setPath('*/*/');
     }
 }
 

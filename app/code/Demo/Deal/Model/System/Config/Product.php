@@ -2,44 +2,44 @@
 
 namespace Demo\Deal\Model\System\Config;
 
-use Demo\Deal\Model\ResourceModel\Post\CollectionFactory as DealsCollection;
-use Magento\Catalog\Model\ProductRepository;
-use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory as ProductCollection;
+use Demo\Deal\Model\ResourceModel\Post\CollectionFactory as deal_factory;
+use Magento\Catalog\Model\ProductRepository as product_repository;
+use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory as product_factory;
 use Magento\Framework\App\ObjectManager;
 use Magento\Framework\Option\ArrayInterface;
 
 class Product implements ArrayInterface
 {
     protected $options;
-    protected $respository;
-    protected $productFactory;
-    protected $dealFactory;
+    protected $product_repository;
+    protected $product_factory;
+    protected $deal_factory;
 
     public function __construct(
-        ProductCollection $productFactory,
-        ProductRepository $productRepository,
-        DealsCollection $dealFactory
+        product_factory $product_factory,
+        product_repository $product_repository,
+        deal_factory $deal_factory
     )
     {
-        $this->productFactory = $productFactory;
-        $this->respository = $productRepository;
-        $this->dealFactory = $dealFactory;
+        $this->product_factory = $product_factory;
+        $this->product_repository = $product_repository;
+        $this->deal_factory = $deal_factory;
     }
 
     public function getProductBySku($sku)
     {
-        return $this->respository->get($sku);
+        return $this->product_repository->get($sku);
     }
 
     public function toOptionArray()
     {
-        $urlInterface = ObjectManager::getInstance()->get('Magento\Framework\UrlInterface');
-        $url = $urlInterface->getCurrentUrl();
-        $products = $this->productFactory->create();
-        $deals = $this->dealFactory->create();
-        $dealId = [];
+        $url_interface = ObjectManager::getInstance()->get('Magento\Framework\UrlInterface');
+        $url = $url_interface->getCurrentUrl();
+        $products = $this->product_factory->create();
+        $deals = $this->deal_factory->create();
+        $deal_id = [];
         foreach ($deals as $deal) {
-            $dealId[] = $deal->getData('product');
+            $deal_id[] = $deal->getData('product');
         }
         $options = [];
         if ($products->getSize()) {
@@ -47,7 +47,7 @@ class Product implements ArrayInterface
                 $options = array_merge($options, [
                     $product->getData('sku') => __($this->getProductBySku($product->getData('sku'))->getName())
                 ]);
-                if (in_array($product->getData('sku'), $dealId) && (strpos($url, '/max/post/create') !== false)) {
+                if (in_array($product->getData('sku'), $deal_id) && (strpos($url, '/max/post/create') !== false)) {
                     unset($options[$product->getData('sku')]);
                 }
             }
