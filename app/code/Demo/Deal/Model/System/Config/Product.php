@@ -33,21 +33,22 @@ class Product implements ArrayInterface
 
     public function toOptionArray()
     {
-        $url_interface = ObjectManager::getInstance()->get('Magento\Framework\UrlInterface');
-        $url = $url_interface->getCurrentUrl();
+        $url = ObjectManager::getInstance()->get('Magento\Framework\UrlInterface')->getCurrentUrl();
         $products = $this->product_factory->create();
         $deals = $this->deal_factory->create();
-        $deal_id = [];
+        $deal_sku = [];
+
         foreach ($deals as $deal) {
-            $deal_id[] = $deal->getData('product');
+            $deal_sku[] = $deal->getData('product');
         }
         $options = [];
+
         if ($products->getSize()) {
             foreach ($products as $product) {
                 $options = array_merge($options, [
                     $product->getData('sku') => __($this->getProductBySku($product->getData('sku'))->getName())
                 ]);
-                if (in_array($product->getData('sku'), $deal_id) && (strpos($url, '/max/post/create') !== false)) {
+                if (in_array($product->getData('sku'), $deal_sku) && (strpos($url, '/max/post/create') !== false)) {
                     unset($options[$product->getData('sku')]);
                 }
             }

@@ -44,7 +44,7 @@ class MassDelete extends Action
             $child->delete();
         }
 
-        $this->messageManager->addSuccess(__('A total of %1 record(s) have been deleted.',$collection_size));
+        $this->messageManager->addSuccess(__('A total of %1 products have been deleted.',$collection_size));
         return $this->_redirect('max/post/index');
     }
 }

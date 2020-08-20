@@ -24,7 +24,7 @@ class Save extends Post
             try {
                 $post_model->save();
 
-                $this->messageManager->addSuccess(__('The news has been saved.'));
+                $this->messageManager->addSuccess(__('The products has been saved.'));
 
                 if ($this->getRequest()->getParam('back')) {
                     $this->_redirect('*/*/edit', ['id' => $post_model->getId(), '_current' => true]);

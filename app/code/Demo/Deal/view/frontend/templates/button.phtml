@@ -3,9 +3,61 @@ $sku = $block->GetCurrentSku()->getSku();
 $end = $block->GetDeal($sku, 'time_end');
 $start = $block->GetDeal($sku, 'time_start');
 ?>
-<div class="countdown">
-    <h1 id="time"></h1>
+<div id="on_time"></div>
+<div id="start_time"></div>
+<div id="end_time"></div>
+<div id="countdown">
+    <div><span id="d" class="v"></span><span>Days</span></div>
+    <div><span id="h" class="v" style="background: yellow"></span><span style="background: yellow">Hours</span></div>
+    <div><span id="m" class="v"></span><span>Minutes</span></div>
+    <div><span id="w" class="v"></span><span>Seconds</span></div>
 </div>
+<style>
+    #countdown {
+        display: flex;
+    }
+    #countdown div span {
+        position: relative;
+        display: flex;
+        width: 80px;
+        height: 80px;
+        background: #2196f3;
+        color: black;
+        font-weight: 1000;
+        border: 3px solid black;
+        justify-content: center;
+        align-items: center;
+        z-index:3;
+        box-shadow: 0 0 0 1px rgba(0,0,0,0.2);
+    }
+    #countdown div {
+        position: relative;
+        margin: 0 5px;
+        -webkit-box-reflect: below 10px linear-gradient(transparent, #0004);
+    }
+    #countdown span:nth-child(2){
+        height: 65px;
+        z-index: 2;
+        box-shadow: none;
+        background:#127fd6;
+        text-transform: uppercase;
+    }
+    #countdown div:last-child span {
+        background: #ff006a;
+    }
+    #countdown div:last-child span:nth-child(2) {
+        background: #ec0062;
+    }
+    #countdown div:first-child span {
+        background: green;
+    }
+    #countdown div:first-child span:nth-child(2) {
+        background: green;
+    }
+    #countdown .v {
+        font-size: 20px;
+    }
+</style>
 <script>
     var end = new Date('<?php echo $end ?>').getTime();
     var start = new Date('<?php echo $start ?>').getTime();
@@ -23,13 +75,20 @@ $start = $block->GetDeal($sku, 'time_start');
             var h = Math.floor((gap % (day)) / (hour));
             var m = Math.floor((gap % (hour)) / (minute));
             var w = Math.floor((gap % (minute)) / second);
-            var time = d + " Days-" + h + " Hours-" + m + " Minutes-" + w + " Seconds";
 
-            document.getElementById("time").innerHTML = time;
+            document.getElementById("d").innerHTML = d;
+            document.getElementById("h").innerHTML = h;
+            document.getElementById("m").innerHTML = m;
+            document.getElementById("w").innerHTML = w;
             if (gap < 0) {
-                document.getElementById("time").innerHTML = "End Deal!";
+                document.getElementById("countdown").remove();
+                document.getElementById("end_time").innerHTML = "End Deal!";
             }else if (gao < 0){
-                document.getElementById("time").innerHTML = "Deal will be start in <?php echo $start ?>";
+                document.getElementById("countdown").remove();
+                document.getElementById("start_time").innerHTML = "Deal will be start in <?php echo $start ?>";
+            }
+            else if (start<now<end) {
+                document.getElementById("on_time").innerHTML = "Deal time remaing: ";
             }
         }
     }

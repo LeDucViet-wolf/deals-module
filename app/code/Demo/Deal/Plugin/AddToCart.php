@@ -29,7 +29,10 @@ class AddToCart
         date_default_timezone_set('Asia/Ho_Chi_Minh');
         $config = $this->scope_config->getValue('helloworld_section_id/general/enable');
         $deals = $this->deal_collection->create();
+        $now = date('Y-m-d H:i:s');
         $deal_sku = [];
+        $items = $subject->getQuote()->getAllItems();
+
         foreach ($deals as $deal) {
             $deal_sku[] = $deal->getData('product');
         }
@@ -46,9 +49,6 @@ class AddToCart
             $start_time = $deals->getItemByColumnValue('product', $product_sku)->getData('time_start');
             $end_time = $deals->getItemByColumnValue('product', $product_sku)->getData('time_end');
             $status = $deals->getItemByColumnValue('product', $product_sku)->getData('status');
-            $now = date('Y-m-d H:i:s');
-
-            $items = $subject->getQuote()->getAllItems();
 
             $product_qty = 0;
             foreach ($items as $item) {
@@ -61,7 +61,7 @@ class AddToCart
                 }
             }
             if ($now <= $end_time && $status == 1 && $now >= $start_time && $config != 0 && $deal_qty < ($add_qty + $product_qty)) {
-                throw new LocalizedException(__('The number of Deal products is limited'));
+                throw new LocalizedException(__('This product have only %1 Deal products',$deal_qty));
             } else {
                 return array($productInfo, $requestInfo);
             }

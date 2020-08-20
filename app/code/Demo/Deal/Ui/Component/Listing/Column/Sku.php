@@ -20,10 +20,11 @@ class Sku extends \Magento\Store\Ui\Component\Listing\Column\Store
         ProductRepositoryInterface $productRepository,
         array $components = [],
         array $data = [],
-        $storeKey = 'store_id')
+        $store_key = 'store_id'
+    )
     {
         $this->productRepository = $productRepository;
-        parent::__construct($context, $uiComponentFactory, $systemStore, $escaper, $components, $data, $storeKey);
+        parent::__construct($context, $uiComponentFactory, $systemStore, $escaper, $components, $data, $store_key);
     }
 
 

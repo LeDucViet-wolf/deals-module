@@ -44,7 +44,7 @@ class UpdateQtyToCart
                 $deal_qty = $deals->getItemByColumnValue('product', $product_sku)->getData('deal_qty');
 
                 if ($now <= $end && $status == 1 && $now >= $start && $config != 0 && $newQty > $deal_qty) {
-                    throw new LocalizedException(__('You can not update cart because deal product quantity limited'));
+                    throw new LocalizedException(__('This product have only %1 Deal products',$deal_qty));
                 } else {
                     $product->setQty($newQty);
                 }
